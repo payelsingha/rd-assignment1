@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assignement-1</title>
+
+	<script type="text/javascript">
+		
+		// Function to be called everytime the entered value is updated
+		function updatetime() {
+			setInterval(displaytime, 500)
+		}
+
+		function displaytime() {
+
+			// Defining variables to get the elements from input fields
+			// and for the displayed time or error message
+			var hr, min, sec, output
+
+			// Get the values
+			hr = document.getElementById("hours").value
+			min = document.getElementById("minutes").value
+			sec = document.getElementById("seconds").value
+
+			// Check the input types
+			if(isNaN(hr) || hr < 0 || hr > 24)
+				output = "Hour must be from 0 to 24"
+			else if(isNaN(min) || min < 0 || min > 59)
+				output = "Minutes must be from 0 to 59"
+			else if(isNaN(sec) || sec < 0 || sec > 59)
+				output = "seconds must be from 0 to 59"
+			else {
+				// Get the present time and display
+			var now = new Date()
+			var present_hr = now.getHours()
+			var present_min = now.getMinutes()
+			var present_sec = now.getSeconds()
+
+			output = present_hr + " : " + present_min + " : " + present_sec
+
+			// Check if the displayed text should be red
+			// Entered time is in Past => Red
+			// Entered time is in Future => Black (Default)
+			if(present_hr >= hr && present_min >= min && present_sec >= sec)
+				output = output.fontcolor("red")
+			}
+
+			// Display the text
+			document.getElementById("output").innerHTML = output
+		}
+	</script>
+
+</head>
+<body>
+
+	<!-- Input Form for the time -->
+	<form class="form-inline" onchange="updatetime()">
+		<input type="number" name="hours" id="hours" maxlength="2"> :
+		<input type="number" name="minutes" id="minutes" maxlength="2"> :
+		<input type="number" name="seconds" id="seconds" maxlength="2">
+	</form>
+
+	<!-- Display the time -->
+	<p id="output"></p>
+
+</body>
+</html>
